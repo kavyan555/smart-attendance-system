@@ -1,0 +1,9 @@
+opencv-python
+numpy
+pandas
+ultralytics
+facenet-pytorch
+deep-sort-realtime
+streamlit
+pyodbc
+pickle-mixin
