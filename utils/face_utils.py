@@ -1,12 +1,37 @@
 import cv2
-import torch
+import numpy as np
+
 
 def preprocess_face(face):
-    face = cv2.resize(face, (160, 160))
-    face = face / 255.0
-    face = face.transpose(2, 0, 1)
-    
-    face = torch.tensor(face, dtype=torch.float32)  # 🔥 convert to tensor
-    face = face.unsqueeze(0)  # add batch dimension
 
-    return face
+    try:
+
+        face = cv2.cvtColor(
+            face,
+            cv2.COLOR_BGR2RGB
+        )
+
+        face = cv2.resize(
+            face,
+            (160, 160)
+        )
+
+        face = face.astype("float32")
+
+        mean = face.mean()
+        std = face.std()
+
+        if std < 1e-6:
+            std = 1e-6
+
+        face = (face - mean) / std
+
+        face = np.expand_dims(face, axis=0)
+
+        return face
+
+    except Exception as e:
+
+        print("Preprocess Error:", e)
+
+        return None

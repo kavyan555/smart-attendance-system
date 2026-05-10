@@ -1,19 +1,38 @@
 import numpy as np
+from sklearn.metrics.pairwise import cosine_similarity
 
-def match_face(embedding, database, threshold=0.7):
-    min_dist = float('inf')
+
+THRESHOLD = 0.70
+
+
+def match_face(embedding, database):
+
+    best_score = -1
     identity = "Unknown"
 
-    # Step 1: Find best match
-    for name, db_emb in database.items():
-        dist = np.linalg.norm(embedding - db_emb)
+    for person_name, embeddings in database.items():
 
-        if dist < min_dist:
-            min_dist = dist
-            identity = name
+        person_best_score = -1
 
-    # Step 2: Apply threshold
-    if min_dist > threshold:
-        return "Unknown"
+        for db_embedding in embeddings:
 
-    return identity
+            score = cosine_similarity(
+                [embedding],
+                [db_embedding]
+            )[0][0]
+
+            if score > person_best_score:
+                person_best_score = score
+
+        if person_best_score > best_score:
+
+            best_score = person_best_score
+            identity = person_name
+
+    confidence = round(float(best_score), 2)
+
+    if best_score < THRESHOLD:
+
+        return "Unknown", confidence
+
+    return identity, confidence

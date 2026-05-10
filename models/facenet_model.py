@@ -1,10 +1,13 @@
-from facenet_pytorch import InceptionResnetV1
-import torch
+from keras_facenet import FaceNet
 
-device = 'cuda' if torch.cuda.is_available() else 'cpu'
+embedder = FaceNet()
 
-model = InceptionResnetV1(pretrained='vggface2').eval().to(device)
 
-def get_embedding(face_tensor):
-    face_tensor = face_tensor.to(device)   # 🔥 ADD THIS
-    return model(face_tensor).detach().cpu().numpy()
+def get_embedding(face):
+
+    if face is None:
+        return None
+
+    embeddings = embedder.embeddings(face)
+
+    return embeddings[0]
