@@ -1,28 +1,70 @@
-# Ignore virtual environments
+# Virtual Environment
 venv/
-*/venv/
+.venv/
 
-# Ignore Python cache
+# Python Cache
 __pycache__/
-*.pyc
+*.py[cod]
+*$py.class
 
+# Environment Variables
+.env
+
+# Embeddings and Model Files
+embeddings/
+*.pkl
+*.h5
+*.pt
+*.pth
+*.onnx
+
+# Dataset Images (optional - if large/private)
+dataset/
+
+# Streamlit
+.streamlit/
+
+# Logs
 *.log
-*.tmp
+
+# OS Files
 .DS_Store
 Thumbs.db
 
-# Ignore Excel runtime files
-*.csv
+# VS Code
+.vscode/
 
-.env
+# PyCharm
+.idea/
 
-*.pkl
+# Jupyter
+.ipynb_checkpoints/
 
-#  Dataset (large files)
-dataset/
+# Temporary Files
+temp/
+tmp/
+*.tmp
 
-# Generated embeddings
-embeddings/
+# Database Files
+*.db
+*.sqlite3
 
-# Model weights
-yolov8n.pt
+# CSV Exports
+exports/
+attendance_reports/
+
+# Build Files
+build/
+dist/
+*.egg-info/
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+
+# MySQL dump files
+*.sql
+
+# Face Recognition Working Directory
+working/
